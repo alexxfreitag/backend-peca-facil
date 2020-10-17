@@ -1,9 +1,7 @@
-import {Router} from 'express'
+import { Router } from 'express';
 
-const routes = new Router()
+const routes = new Router();
 
-routes.get('/', (req, res) => {
-  return res.json({ msg: 'Backend working'})
-})
+routes.get('/', (req, res) => res.json({ msg: 'Backend working' }));
 
-export default routes
+export default routes;
