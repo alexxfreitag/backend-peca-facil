@@ -23,6 +23,21 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
+          cpfCnpj: {
+            type: Sequelize.INTEGER,
+            unique: true,
+          },
+          phone: {
+            type: Sequelize.STRING,
+          },
+          address: {
+            type: Sequelize.STRING,
+          },
+          seller: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+            allowNull: false,
+          },
           created_at: {
             type: Sequelize.DATE,
             allowNull: false,
