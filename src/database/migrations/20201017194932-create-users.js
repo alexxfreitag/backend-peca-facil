@@ -23,8 +23,8 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
-          cpfCnpj: {
-            type: Sequelize.INTEGER,
+          cpf_cnpj: {
+            type: Sequelize.STRING,
             unique: true,
           },
           phone: {

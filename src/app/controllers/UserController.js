@@ -9,22 +9,33 @@ class UserController {
         where: {
           id: req.params.id,
         },
+        attributes: [
+          'id',
+          'name',
+          'email',
+          'cpf_cnpj',
+          'phone',
+          'address',
+          'seller',
+        ],
       });
 
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
 
-      const { id, name, email } = user;
-
-      return res.json({
-        id,
-        name,
-        email,
-      });
+      return res.json(user);
     }
     const users = await User.findAll({
-      attributes: ['id', 'name', 'email'],
+      attributes: [
+        'id',
+        'name',
+        'email',
+        'cpf_cnpj',
+        'phone',
+        'address',
+        'seller',
+      ],
     });
     return res.json(users);
   }
@@ -37,7 +48,7 @@ class UserController {
         name: Yup.string().required(),
         email: Yup.string().email().required(),
         password: Yup.string().required().min(6),
-        cpfCnpj: Yup.number().required(),
+        cpf_cnpj: Yup.string().required(),
         phone: Yup.string().required(),
         address: Yup.string().required(),
       });
