@@ -59,7 +59,7 @@ class UserController {
 
     const userExists = await User.findOne({ where: { email: req.body.email } });
     if (userExists)
-      return res.status(409).json({ error: 'Email address already used.' });
+      return res.status(409).json({ error: 'Email address already used' });
 
     const { id, name } = await User.create(req.body);
 
