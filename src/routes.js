@@ -7,6 +7,7 @@ const routes = new Router();
 routes.get('/', (req, res) => res.json({ msg: 'Backend working' }));
 
 routes.get('/users', UserController.index);
+routes.get('/users/:id', UserController.index);
 routes.post('/users', UserController.store);
 
 export default routes;

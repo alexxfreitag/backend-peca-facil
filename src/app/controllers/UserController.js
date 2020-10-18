@@ -4,16 +4,50 @@ import reqBodyValidation from '../utils/reqBodyValidation';
 
 class UserController {
   async index(req, res) {
-    const users = await User.findAll();
+    if (req.params.id) {
+      const user = await User.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const { id, name, email } = user;
+
+      return res.json({
+        id,
+        name,
+        email,
+      });
+    }
+    const users = await User.findAll({
+      attributes: ['id', 'name', 'email'],
+    });
     return res.json(users);
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string().email().required(),
-      password: Yup.string().required().min(6),
-    });
+    let schema;
+
+    if (req.body.seller) {
+      schema = Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().email().required(),
+        password: Yup.string().required().min(6),
+        cpfCnpj: Yup.number().required(),
+        phone: Yup.string().required(),
+        address: Yup.string().required(),
+      });
+    } else {
+      schema = Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().email().required(),
+        password: Yup.string().required().min(6),
+      });
+    }
 
     const validationErrors = await reqBodyValidation(schema, req.body);
 
