@@ -5,7 +5,26 @@ import reqBodyValidation from '../utils/reqBodyValidation';
 
 class ProductController {
   async index(req, res) {
+    if (req.params.id) {
+      const product = await Product.findOne({
+        attributes: ['id', 'name', 'description', 'value', 'category'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name'],
+          },
+        ],
+      });
+
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+
+      return res.json(product);
+    }
     const products = await Product.findAll({
+      attributes: ['id', 'name', 'description', 'value', 'category'],
       include: [
         {
           model: User,
