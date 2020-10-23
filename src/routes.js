@@ -19,6 +19,7 @@ routes.get('/users/:id', UserController.index);
 routes.post('/users', UserController.store);
 
 routes.get('/products', ProductController.index);
+routes.get('/products/:id', ProductController.index);
 routes.post('/products', ProductController.store);
 
 export default routes;
