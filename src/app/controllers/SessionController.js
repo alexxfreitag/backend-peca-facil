@@ -25,13 +25,15 @@ class SessionController {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+      return res
+        .status(400)
+        .json({ error: 'Não foi encontrado um usuário com este e-mail' });
     }
 
     if (!(await user.checkPassword(password))) {
       return res
         .status(401)
-        .json({ error: 'Incorrect email/password combination' });
+        .json({ error: 'Combinação de e-mail e senha incorreta' });
     }
 
     const { secret, expiresIn } = authConfig.jwt;
