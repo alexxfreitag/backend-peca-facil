@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import File from '../models/File';
 import Product from '../models/Product';
 import User from '../models/User';
 import reqBodyValidation from '../utils/reqBodyValidation';
@@ -12,7 +13,12 @@ class ProductController {
           {
             model: User,
             as: 'user',
-            attributes: ['id', 'name'],
+            attributes: ['id', 'name', 'phone'],
+          },
+          {
+            model: File,
+            as: 'picture',
+            attributes: ['id', 'path'],
           },
         ],
       });
@@ -29,7 +35,12 @@ class ProductController {
         {
           model: User,
           as: 'user',
-          attributes: ['id', 'name'],
+          attributes: ['id', 'name', 'phone'],
+        },
+        {
+          model: File,
+          as: 'picture',
+          attributes: ['id', 'path', 'url'],
         },
       ],
     });
