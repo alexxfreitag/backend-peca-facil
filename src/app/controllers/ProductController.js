@@ -24,11 +24,39 @@ class ProductController {
       });
 
       if (!product) {
-        return res.status(404).json({ error: 'Product not found' });
+        return res.status(404).json({ error: 'Produto não encontrado' });
       }
 
       return res.json(product);
     }
+
+    if (req.query.user_id) {
+      const products = await Product.findAll({
+        where: { user_id: req.query.user_id },
+        attributes: ['id', 'name', 'description', 'value', 'category'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name', 'phone'],
+          },
+          {
+            model: File,
+            as: 'picture',
+            attributes: ['id', 'path', 'url'],
+          },
+        ],
+      });
+
+      if (!products) {
+        return res
+          .status(404)
+          .json({ error: 'Nenhum produto encontrado para este ferro-velho' });
+      }
+
+      return res.json(products);
+    }
+
     const products = await Product.findAll({
       attributes: ['id', 'name', 'description', 'value', 'category'],
       include: [
@@ -44,6 +72,7 @@ class ProductController {
         },
       ],
     });
+
     return res.json(products);
   }
 
