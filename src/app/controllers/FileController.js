@@ -9,7 +9,7 @@ class FileController {
 
   async store(req, res) {
     const { originalname: name, filename: path } = req.file;
-    const { product_id } = req.body;
+    const product_id = req.params.id;
 
     const product = await Product.findOne({ where: { id: product_id } });
 
