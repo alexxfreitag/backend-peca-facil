@@ -27,6 +27,6 @@ routes.get('/products/:id', ProductController.index);
 routes.post('/products', ProductController.store);
 
 routes.get('/files', FileController.index);
-routes.post('/files', upload.single('file'), FileController.store);
+routes.post('/files/products/:id', upload.single('file'), FileController.store);
 
 export default routes;
