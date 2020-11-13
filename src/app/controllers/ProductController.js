@@ -121,6 +121,10 @@ class ProductController {
       attributes: ['id', 'name', 'description', 'value', 'category'],
     });
 
+    if (!product) {
+      return res.status(404).json({ error: 'Produto não encontrado' });
+    }
+
     if (req.body.name) product.name = req.body.name;
     if (req.body.description) product.description = req.body.description;
     if (req.body.value) product.value = req.body.value;
