@@ -24,6 +24,7 @@ routes.post('/users', UserController.store);
 
 routes.get('/products', ProductController.index);
 routes.get('/products/:id', ProductController.index);
+routes.put('/products/:id', ProductController.update);
 routes.post('/products', ProductController.store);
 
 routes.get('/files', FileController.index);

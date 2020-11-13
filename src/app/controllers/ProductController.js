@@ -8,6 +8,7 @@ class ProductController {
   async index(req, res) {
     if (req.params.id) {
       const product = await Product.findOne({
+        where: { id: req.params.id },
         attributes: ['id', 'name', 'description', 'value', 'category'],
         include: [
           {
@@ -18,7 +19,7 @@ class ProductController {
           {
             model: File,
             as: 'picture',
-            attributes: ['id', 'path'],
+            attributes: ['id', 'path', 'url'],
           },
         ],
       });
@@ -110,6 +111,24 @@ class ProductController {
     });
 
     return res.json(result);
+  }
+
+  async update(req, res) {
+    const product_id = req.params.id;
+
+    const product = await Product.findOne({
+      where: { id: product_id },
+      attributes: ['id', 'name', 'description', 'value', 'category'],
+    });
+
+    if (req.body.name) product.name = req.body.name;
+    if (req.body.description) product.description = req.body.description;
+    if (req.body.value) product.value = req.body.value;
+    if (req.body.category) product.category = req.body.category;
+
+    await product.save();
+
+    return res.json(product);
   }
 }
 
