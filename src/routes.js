@@ -15,12 +15,12 @@ const upload = multer(multerConfig);
 routes.get('/', (req, res) => res.json({ msg: 'Backend working' }));
 
 routes.post('/sessions', SessionController.store);
+routes.post('/users', UserController.store);
 
 routes.use(authMiddleware);
 
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.index);
-routes.post('/users', UserController.store);
 
 routes.get('/products', ProductController.index);
 routes.get('/products/:id', ProductController.index);
