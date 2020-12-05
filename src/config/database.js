@@ -6,6 +6,7 @@ module.exports = {
     protocol: 'postgres',
     dialectOptions: {
       ssl: true,
+      rejectUnauthorized: false,
     },
   },
   development: {
